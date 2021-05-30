@@ -19,17 +19,17 @@ public class UserController {
 
     // 登录
     @RequestMapping("/doLogin")
-    public String doLogin(String username, String password) {
+    public User doLogin(String username, String password) {
         User userInfo = userService.queryUserByName(username);
         if (userInfo == null){
-            return "Wrong Username";
+            return null;
         }
         else if (!userInfo.getPassword().equals(password)){
-            return "Wrong Password";
+            return null;
         }
         else {
             StpUtil.setLoginId(userInfo.getID());
-            return "Login Success";
+            return userInfo;
         }
     }
 
@@ -62,7 +62,7 @@ public class UserController {
     // 获取当前登录用户ID
     @RequestMapping(value = "/get_current_id", method = RequestMethod.GET)
     public String GetCurrentId(){
-        return StpUtil.getLoginIdAsString();
+        return StpUtil.getLoginId("");
     }
 
 }
