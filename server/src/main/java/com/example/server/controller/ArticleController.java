@@ -40,7 +40,7 @@ public class ArticleController {
         String id = (userAnonymousId != null? userAnonymousId: userRealId);
         if(id == null) return articleList;
         User user = userService.getUserInfoById(id);
-        String currentLoginId = StpUtil.getLoginIdAsString();
+        String currentLoginId = StpUtil.getLoginId("");
         // 判断传过来的用户和当前登录用户是否是一个人，即是查看自己的文章列表还是查看别人的文章列表
         // 如果是查看自己的文章列表
         if(currentLoginId.equals(user.getID())){
@@ -59,7 +59,7 @@ public class ArticleController {
         if((article.getTitle() != null || article.getContent() != null) && article.getAuthor_id() != null && article.getId() != 0){
             // 判断文章作者是不是当前用户
             User user = userService.getUserInfoById(article.getAuthor_id());
-            String currentLoginId = StpUtil.getLoginIdAsString();
+            String currentLoginId = StpUtil.getLoginId("");
             if(user.getID().equals(currentLoginId)){
                 articleService.updateArticle(article);
                 return "Update Success";
@@ -76,7 +76,7 @@ public class ArticleController {
     public String UpdateArticleAnonymousStatus(@RequestParam(value = "id")int id) {
         // 判断操作人是不是文章作者
         Article article = articleService.getArticleById(id);
-        String currentLoginId = StpUtil.getLoginIdAsString();
+        String currentLoginId = StpUtil.getLoginId("");
         User user = userService.getUserInfoById(currentLoginId);
         boolean isAnonymous;
         if(user.getID().equals(article.getAuthor_id())){
@@ -97,7 +97,7 @@ public class ArticleController {
     public String DeleteArticle(@RequestParam(value = "id") int id) {
         // 判断操作人是不是文章作者
         Article article = articleService.getArticleById(id);
-        String currentLoginId = StpUtil.getLoginIdAsString();
+        String currentLoginId = StpUtil.getLoginId("");
         User user = userService.getUserInfoById(currentLoginId);
 
         if(user.getID().equals(article.getAuthor_id()) || user.getAnonymous_id().equals(article.getAuthor_id())){
