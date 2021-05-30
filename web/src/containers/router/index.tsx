@@ -6,6 +6,7 @@ import MainLayout from '../layout/main-layout';
 import {detailRouteConfig} from './detail';
 import {userRouteConfig} from './user';
 import LoginPage from '../passport/login';
+import RegisterPage from '../passport/register';
 
 function RouteConfig(): JSX.Element {
   const history = createBrowserHistory();
@@ -19,6 +20,7 @@ function RouteConfig(): JSX.Element {
             <Route path={'/passport'}>
               <Switch>
                 <Route path={'/passport/login'} component={LoginPage}/>
+                <Route path={'/passport/register'} component={RegisterPage}/>
               </Switch>
             </Route>
             {detailRouteConfig()}

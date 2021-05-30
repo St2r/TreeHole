@@ -7,5 +7,14 @@ type TDoLoginRequest = {
   password: string,
 }
 export function httpDoLogin(props: TDoLoginRequest): Promise<AxiosResponse<string>> {
-  return HttpClient.post<string, AxiosResponse<string>>('/user/doLogin', props);
+  return HttpClient.post<string, AxiosResponse<string>>('/user/doLogin', JSON.stringify(props));
+}
+
+
+type TDoRegisterRequest = {
+  username: string,
+  password: string,
+}
+export function httpDoRegister(props: TDoRegisterRequest): Promise<AxiosResponse<string>> {
+  return HttpClient.post('/user/register', JSON.stringify(props));
 }
