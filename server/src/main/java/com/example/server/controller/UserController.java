@@ -4,13 +4,11 @@ import cn.dev33.satoken.stp.StpUtil;
 import com.example.server.entity.User;
 import com.example.server.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/user")
 public class UserController {
@@ -18,13 +16,16 @@ public class UserController {
     private UserServiceImpl userService;
 
     // 登录
-    @RequestMapping("/doLogin")
-    public User doLogin(String username, String password) {
-        User userInfo = userService.queryUserByName(username);
+    @RequestMapping(value = "/doLogin", method = RequestMethod.POST)
+    public User doLogin(@RequestBody User user) {
+        if(user.getUsername() == null || user.getPassword() == null){
+            return null;
+        }
+        User userInfo = userService.queryUserByName(user.getUsername());
         if (userInfo == null){
             return null;
         }
-        else if (!userInfo.getPassword().equals(password)){
+        else if (!userInfo.getPassword().equals(user.getPassword())){
             return null;
         }
         else {
