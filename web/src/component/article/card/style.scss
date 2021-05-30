@@ -1,4 +1,32 @@
 .article-card {
-  border: solid black 1px;
-  width: 800px;
+  width: 600px;
+  min-height: 200px;
+  padding: 30px;
+  display: flex;
+
+  .article-card-left {
+    width: 50px;
+
+    .article-card-avatar {
+      margin: 0 auto;
+    }
+
+    .article-card-follow {
+      margin: 0 4px;
+    }
+  }
+
+  .article-card-right {
+    flex-grow: 1;
+    padding: 5px;
+  }
+
+  .article-card-content {
+    padding: 5px;
+    min-height: 150px;
+  }
+
+  .article-card-comment {
+    background: rgba(0, 0, 0, 0.2);
+  }
 }

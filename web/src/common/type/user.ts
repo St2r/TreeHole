@@ -1,4 +1,6 @@
 export type TUser = {
-  userId: string,
+  userAnonymousId?: string | undefined,
+  userRealId?: string | undefined,
   username: string,
+  usertype?: 'Anonymous' | 'Real' | undefined,
 }
