@@ -5,6 +5,8 @@ import com.example.server.mapper.CommentMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class CommentServiceImpl implements CommentService{
     @Autowired
@@ -20,5 +22,9 @@ public class CommentServiceImpl implements CommentService{
 
     public Comment queryCommentById(int id){
         return commentMapper.queryCommentById(id);
+    }
+
+    public List<Comment> queryChildComments(int father_id, int type){
+        return commentMapper.queryChildComment(father_id, type);
     }
 }

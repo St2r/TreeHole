@@ -22,6 +22,10 @@ public class CommentController {
     public String CreateComment(@RequestBody Comment comment) {
         System.out.println(comment);
         if(comment.getContent() != null && comment.getAuthor_id() != null && comment.getFather_id() != 0 && comment.getType() != 0){
+            User user = userService.getUserInfoById(comment.getAuthor_id());
+            if(user.getID().equals(comment.getAuthor_id())){
+                comment.setUsername(user.getUsername());
+            }
             commentService.createComment(comment);
             return "Create Success";
         }

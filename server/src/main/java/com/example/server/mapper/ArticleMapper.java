@@ -4,6 +4,8 @@ import com.example.server.entity.Article;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 @Mapper
 public interface ArticleMapper {
@@ -27,4 +29,7 @@ public interface ArticleMapper {
 
     @Delete("delete from article where id=#{id}")
     void deleteArticle(int id);
+
+    @Select("select * from article order by modify_time desc limit #{size} offset #{offset};")
+    List<Article> QueryArticles(int offset, int size);
 }

@@ -2,13 +2,16 @@ package com.example.server.controller;
 
 import cn.dev33.satoken.stp.StpUtil;
 import com.example.server.entity.Article;
+import com.example.server.entity.Comment;
 import com.example.server.entity.User;
 import com.example.server.service.ArticleServiceImpl;
+import com.example.server.service.CommentServiceImpl;
 import com.example.server.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @CrossOrigin
@@ -19,11 +22,17 @@ public class ArticleController {
     private ArticleServiceImpl articleService;
     @Autowired
     private UserServiceImpl userService;
+    @Autowired
+    private CommentServiceImpl commentService;
 
     // 发布文章
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public String CreateArticle(@RequestBody Article article) {
         if(article.getTitle() != null && article.getContent() != null && article.getAuthor_id() != null){
+            User user = userService.getUserInfoById(article.getAuthor_id());
+            if(user.getID().equals(article.getAuthor_id())){
+                article.setUsername(user.getUsername());
+            }
             articleService.createArticle(article);
             return "Create Success";
         }
@@ -107,5 +116,22 @@ public class ArticleController {
         else{
             return "User Error";
         }
+    }
+
+    // 获取首页文章
+    @RequestMapping(value = "/query", method = RequestMethod.GET)
+    public List<Article> DeleteArticle(@RequestParam(value = "page", required = false) int page, @RequestParam(value = "size", required = false) int size) {
+        if(page == 0) page = 1;
+        if(size == 0) size = 10;
+        List<Article> articles = articleService.QueryArticles((page-1)*size, size);
+        for(int i=0; i<articles.size(); i++){
+            Article thisArticle = articles.get(i);
+            thisArticle.setComments(commentService.queryChildComments(thisArticle.getId(), 2));
+            for(int j=0; j<thisArticle.getComments().size(); j++){
+                Comment thisComment = thisArticle.getComments().get(j);
+                thisComment.setComments(commentService.queryChildComments(thisComment.getId(), 1));
+            }
+        }
+        return articles;
     }
 }

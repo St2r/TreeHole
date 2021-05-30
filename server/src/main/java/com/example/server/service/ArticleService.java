@@ -4,6 +4,8 @@ import com.example.server.entity.Article;
 import com.example.server.entity.User;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public interface ArticleService {
     void createArticle(Article article);
@@ -17,5 +19,7 @@ public interface ArticleService {
     void changeAnonymousStatus(Article article, User user, boolean isAnonymous);
 
     void deleteArticle(int id);
+
+    List<Article> QueryArticles(int offset, int size);
 
 }

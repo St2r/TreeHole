@@ -3,6 +3,7 @@ package com.example.server.entity;
 import lombok.Data;
 
 import java.util.Date;
+import java.util.List;
 
 @Data
 public class Comment {
@@ -13,4 +14,6 @@ public class Comment {
     private int father_id;
     // 1：评论评论，2：评论文章
     private int type;
+    private List<Comment> comments;
+    private String username;
 }

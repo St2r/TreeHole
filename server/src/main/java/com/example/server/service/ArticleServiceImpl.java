@@ -1,11 +1,14 @@
 package com.example.server.service;
 
 import com.example.server.entity.Article;
+import com.example.server.entity.Comment;
 import com.example.server.entity.User;
 import com.example.server.mapper.ArticleMapper;
 import com.example.server.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class ArticleServiceImpl implements ArticleService{
@@ -46,4 +49,8 @@ public class ArticleServiceImpl implements ArticleService{
         articleMapper.deleteArticle(id);
     }
 
+    public List<Article> QueryArticles(int offset, int size){
+        List<Article> articles = articleMapper.QueryArticles(offset, size);
+        return articles;
+    }
 }
