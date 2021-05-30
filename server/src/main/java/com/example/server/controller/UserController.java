@@ -6,51 +6,63 @@ import com.example.server.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-/**
- * 登录测试
- * @author kong
- *
- */
+import java.util.UUID;
+
 @RestController
 @RequestMapping("/user")
 public class UserController {
     @Autowired
     private UserServiceImpl userService;
-    // 测试登录，浏览器访问： http://localhost:8088/user/doLogin?username=zhang&password=123456
+
+    // 登录
     @RequestMapping("/doLogin")
     public String doLogin(String username, String password) {
-        // 此处仅作模拟示例，真实项目需要从数据库中查询数据进行比对
-        if("zhang".equals(username) && "123456".equals(password)) {
-            StpUtil.setLoginId(10001);
-            return "登录成功";
+        User userInfo = userService.queryUserByName(username);
+        if (userInfo == null){
+            return "Wrong Username";
         }
-        return "登录失败";
+        else if (!userInfo.getPassword().equals(password)){
+            return "Wrong Password";
+        }
+        else {
+            StpUtil.setLoginId(userInfo.getID());
+            return "Login Success";
+        }
     }
 
+    // 判断是否登录
     // 查询登录状态，浏览器访问： http://localhost:8081/user/isLogin
     @RequestMapping("/isLogin")
-    public String isLogin(String username, String password) {
-        return "当前会话是否登录：" + StpUtil.isLogin();
+    public boolean isLogin() {
+        return StpUtil.isLogin();
     }
 
-    @RequestMapping("/register")
+    // 注册
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
     public String Register(@RequestBody User user) {
-        int isOk = userService.addUser(user);
-        return "这是一个测试";
+        // 先判断有没有相同用户名
+        if(userService.queryUserByName(user.getUsername()) != null){
+            return "Username Exists";
+        }
+        user.setID(String.valueOf(UUID.randomUUID()));
+        user.setAnonymous_id(String.valueOf(UUID.randomUUID()));
+        userService.addUser(user);
+        return "Register Success";
     }
 
-    @RequestMapping("/test")
-    public String justATest() {
-        User user = new User();
-        user.setUsername("lzx");
-        user.setMobile("17600294314");
-        user.setPassword("12345");
-        user.setUsertype(1);
-        int isOk = userService.addUser(user);
-        return "这是一个测试";
+    // 退出登录
+    @RequestMapping(value = "/logout", method = RequestMethod.GET)
+    public void Logout() {
+        StpUtil.logout();
     }
 
+    // 获取当前登录用户ID
+    @RequestMapping(value = "/get_current_id", method = RequestMethod.GET)
+    public String GetCurrentId(){
+        return StpUtil.getLoginIdAsString();
+    }
 
 }

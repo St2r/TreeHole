@@ -6,7 +6,8 @@ import java.util.Date;
 
 @Data
 public class User {   //分布式传输实体需要序列化
-    private int ID;
+    private String ID;
+    private String anonymous_id;
     private String sex;
     private String username;
     private int usertype;
