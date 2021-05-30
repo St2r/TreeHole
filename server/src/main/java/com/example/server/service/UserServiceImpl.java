@@ -9,7 +9,18 @@ import org.springframework.stereotype.Service;
 public class UserServiceImpl implements UserService {
     @Autowired
     private UserMapper userMapper;
-    public int addUser(User user){
-        return userMapper.addUser(user);
+    public void addUser(User user){
+        userMapper.addUser(user);
     }
+
+
+    public User queryUserByName(String username){
+        return userMapper.queryUserByName(username);
+    }
+
+    public User getUserInfoById(String id){
+        return userMapper.getUserInfoById(id);
+    }
+
+
 }
