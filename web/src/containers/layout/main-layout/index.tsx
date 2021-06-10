@@ -3,6 +3,7 @@ import {AppBar, IconButton, Paper, Tab, Tabs, Toolbar, Typography} from '@materi
 import MenuIcon from '@material-ui/icons/Menu';
 import {useHistory, useRouteMatch} from 'react-router';
 import UserBar from '../../../component/user-bar';
+import './style.scss';
 
 
 type TMainLayoutProps = {
@@ -28,10 +29,11 @@ function MainLayout(props: TMainLayoutProps): JSX.Element {
   return (
     <>
       <AppBar position="static" color="primary" variant="outlined">
-        <Toolbar variant="dense">
+        <Toolbar variant="regular">
           <IconButton edge="start" color="inherit" aria-label="menu">
             <MenuIcon/>
           </IconButton>
+
           <Typography variant="h6" color="inherit">
             TreeHole
           </Typography>
@@ -42,8 +44,8 @@ function MainLayout(props: TMainLayoutProps): JSX.Element {
             <Tab label="吐槽"/>
             <Tab label="表白"/>
           </Tabs>
-
-          <UserBar position='appBar'/>
+          <div/>
+          <UserBar position='appBar' className="appbar-user"/>
         </Toolbar>
       </AppBar>
       {props.children != null && props.children}
