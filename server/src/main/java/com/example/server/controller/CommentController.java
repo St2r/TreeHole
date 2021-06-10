@@ -3,7 +3,9 @@ package com.example.server.controller;
 import cn.dev33.satoken.stp.StpUtil;
 import com.example.server.entity.Comment;
 import com.example.server.entity.User;
+import com.example.server.service.ArticleService;
 import com.example.server.service.CommentServiceImpl;
+import com.example.server.service.MessageService;
 import com.example.server.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +18,10 @@ public class CommentController {
     CommentServiceImpl commentService;
     @Autowired
     private UserServiceImpl userService;
+    @Autowired
+    private MessageService messageService;
+    @Autowired
+    private ArticleService articleService;
 
     // 发表评论
     @RequestMapping(value = "/create", method = RequestMethod.POST)
@@ -27,6 +33,20 @@ public class CommentController {
                 comment.setUsername(user.getUsername());
             }
             commentService.createComment(comment);
+
+            // 生成 message
+            int type = comment.getType();
+            String target_user_id = null;
+            if (type == 1) {
+                // 评论评论
+                target_user_id = commentService.getTargetUserId(comment.getFather_id());
+            }
+            else if (type == 2) {
+                // 评论文章
+                target_user_id = articleService.getTargetUserId(comment.getFather_id());
+            }
+            messageService.generateMessage(comment, target_user_id);
+
             return "Create Success";
         }
         return "Params Error";

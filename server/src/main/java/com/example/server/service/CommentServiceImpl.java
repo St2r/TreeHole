@@ -27,4 +27,13 @@ public class CommentServiceImpl implements CommentService{
     public List<Comment> queryChildComments(int father_id, int type){
         return commentMapper.queryChildComment(father_id, type);
     }
+
+    @Override
+    public String getTargetUserId(int father_id) {
+        Comment comment = commentMapper.queryCommentById(father_id);
+        if (comment == null) return null;
+        else {
+            return comment.getAuthor_id();
+        }
+    }
 }

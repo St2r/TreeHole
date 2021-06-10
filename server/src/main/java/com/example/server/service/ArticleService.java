@@ -22,4 +22,6 @@ public interface ArticleService {
 
     List<Article> QueryArticles(int offset, int size);
 
+    // 获取评论应该通知的 user id
+    String getTargetUserId(int father_id);
 }

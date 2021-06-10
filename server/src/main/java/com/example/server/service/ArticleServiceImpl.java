@@ -53,4 +53,15 @@ public class ArticleServiceImpl implements ArticleService{
         List<Article> articles = articleMapper.QueryArticles(offset, size);
         return articles;
     }
+
+    @Override
+    public String getTargetUserId(int father_id) {
+        Article article = articleMapper.getArticleById(father_id);
+        if (article != null) {
+            return article.getAuthor_id();
+        }
+        else {
+            return null;
+        }
+    }
 }
