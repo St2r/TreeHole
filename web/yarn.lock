@@ -2471,7 +2471,7 @@ tiny-warning@^1.0.0, tiny-warning@^1.0.2, tiny-warning@^1.0.3:
   resolved "https://registry.npm.taobao.org/tiny-warning/download/tiny-warning-1.0.3.tgz?cache=0&sync_timestamp=1562635535811&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Ftiny-warning%2Fdownload%2Ftiny-warning-1.0.3.tgz#94a30db453df4c643d0fd566060d60a875d84754"
   integrity sha1-lKMNtFPfTGQ9D9VmBg1gqHXYR1Q=
 
-tinymce@^5.5.1:
+tinymce@^5.5.1, tinymce@^5.8.1:
   version "5.8.1"
   resolved "https://registry.nlark.com/tinymce/download/tinymce-5.8.1.tgz#f6ace70e47cf6b5b0a63f52cf38e4ae04a35ba58"
   integrity sha1-9qznDkfPa1sKY/Us845K4Eo1ulg=

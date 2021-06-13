@@ -1,23 +1,53 @@
-import React, {useCallback, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import AddIcon from '@material-ui/icons/Add';
-import {useHistory} from 'react-router';
-import {Fab} from '@material-ui/core';
+import {useHistory, useRouteMatch} from 'react-router';
+import {Fab, Zoom} from '@material-ui/core';
+import {cls} from '../../common/util/cls';
+import './style.scss';
+
+const postPath = '/post';
+
+const zoomTransition = {
+  enter: 400,
+  exit: 400,
+};
 
 type TAddButtonProps = {
   className?: string,
 }
 
 function AddButton(props: TAddButtonProps): JSX.Element {
+  const [opened, setOpened] = useState(true);
+
   const history = useHistory();
+
+  const match = useRouteMatch({
+    path: postPath,
+    strict: true,
+  });
+
+  useEffect(() => {
+    setOpened(match?.path !== postPath);
+  }, [match]);
 
   const onClickNewPost = useCallback(() => {
     history.push('/post');
   }, []);
 
   return <div className={props.className}>
-    <Fab color="primary" onClick={onClickNewPost}>
-      <AddIcon/>
-    </Fab>
+    <Zoom
+      in={opened}
+      timeout={zoomTransition}
+    >
+      <Fab
+        className={cls({
+          hidden: !opened,
+        })}
+        color="primary"
+        onClick={onClickNewPost}>
+        <AddIcon/>
+      </Fab>
+    </Zoom>
   </div>;
 }
 

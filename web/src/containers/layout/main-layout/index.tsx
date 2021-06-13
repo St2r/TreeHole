@@ -1,6 +1,5 @@
 import React, {useCallback, useEffect, useState} from 'react';
-import {AppBar, IconButton, Paper, Tab, Tabs, Toolbar, Typography} from '@material-ui/core';
-import MenuIcon from '@material-ui/icons/Menu';
+import {AppBar, Tab, Tabs, Toolbar, Typography} from '@material-ui/core';
 import {useHistory, useRouteMatch} from 'react-router';
 import UserBar from '../../../component/user-bar';
 import './style.scss';
@@ -24,7 +23,7 @@ function MainLayout(props: TMainLayoutProps): JSX.Element {
   const history = useHistory();
 
   useEffect(() => {
-    setTabIndex(match?.path != undefined ? tabs.findIndex((e) => e == match.path) : false);
+    setTabIndex(match?.path != undefined ? tabs.findIndex((e) => e === match.path) : false);
   }, [match]);
 
   const handleTabChange = useCallback((event: React.ChangeEvent<{}>, newValue: number) => {
@@ -52,7 +51,9 @@ function MainLayout(props: TMainLayoutProps): JSX.Element {
       </AppBar>
       {props.children != null && props.children}
 
-      <AddButton className="appbar-add-button"/>
+      <AddButton
+        className="appbar-add-button"
+      />
     </>
   );
 }
