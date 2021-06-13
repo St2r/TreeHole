@@ -1,9 +1,10 @@
-import React, {useCallback, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {AppBar, IconButton, Paper, Tab, Tabs, Toolbar, Typography} from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import {useHistory, useRouteMatch} from 'react-router';
 import UserBar from '../../../component/user-bar';
 import './style.scss';
+import AddButton from '../../../component/add-button';
 
 
 type TMainLayoutProps = {
@@ -17,9 +18,14 @@ function MainLayout(props: TMainLayoutProps): JSX.Element {
     path: tabs,
     strict: false,
   });
-  const [tabIndex, setTabIndex] =
-    useState(match?.path != undefined ? tabs.findIndex((e) => e == match.path) : false);
+
+  const [tabIndex, setTabIndex] = useState<false | number>(false);
+
   const history = useHistory();
+
+  useEffect(() => {
+    setTabIndex(match?.path != undefined ? tabs.findIndex((e) => e == match.path) : false);
+  }, [match]);
 
   const handleTabChange = useCallback((event: React.ChangeEvent<{}>, newValue: number) => {
     setTabIndex(newValue);
@@ -28,12 +34,8 @@ function MainLayout(props: TMainLayoutProps): JSX.Element {
 
   return (
     <>
-      <AppBar position="static" color="primary" variant="outlined">
-        <Toolbar variant="regular">
-          <IconButton edge="start" color="inherit" aria-label="menu">
-            <MenuIcon/>
-          </IconButton>
-
+      <AppBar position="sticky" color="primary" variant="outlined">
+        <Toolbar variant="dense">
           <Typography variant="h6" color="inherit">
             TreeHole
           </Typography>
@@ -49,6 +51,8 @@ function MainLayout(props: TMainLayoutProps): JSX.Element {
         </Toolbar>
       </AppBar>
       {props.children != null && props.children}
+
+      <AddButton className="appbar-add-button"/>
     </>
   );
 }

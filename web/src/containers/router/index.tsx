@@ -7,6 +7,7 @@ import {detailRouteConfig} from './detail';
 import {userRouteConfig} from './user';
 import LoginPage from '../passport/login';
 import RegisterPage from '../passport/register';
+import PostPage from '../post';
 
 function RouteConfig(): JSX.Element {
   const history = createBrowserHistory();
@@ -23,6 +24,7 @@ function RouteConfig(): JSX.Element {
                 <Route path={'/passport/register'} component={RegisterPage}/>
               </Switch>
             </Route>
+            <Route path={'/post'} component={PostPage}/>
             {detailRouteConfig()}
             {userRouteConfig()}
             {tabs.map(((value, index) => {
