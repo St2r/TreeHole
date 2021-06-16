@@ -34,15 +34,14 @@ function AddButton(props: TAddButtonProps): JSX.Element {
     history.push('/post');
   }, []);
 
-  return <div className={props.className}>
+  return <div className={cls({
+    hidden: !opened,
+  }, props.className)}>
     <Zoom
       in={opened}
       timeout={zoomTransition}
     >
       <Fab
-        className={cls({
-          hidden: !opened,
-        })}
         color="primary"
         onClick={onClickNewPost}>
         <AddIcon/>

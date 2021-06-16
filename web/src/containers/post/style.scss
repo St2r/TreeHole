@@ -1,4 +1,10 @@
 .editor {
-  margin: 0 100px;
-  width: auto;
+  margin: 100px auto 0;
+  max-width: 1000px;
+}
+
+.post-toolbar {
+  position: absolute;
+  bottom: 40px;
+  right: 40px;
 }
