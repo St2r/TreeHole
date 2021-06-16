@@ -2,8 +2,6 @@ import React, {useCallback, useEffect, useState} from 'react';
 import AddIcon from '@material-ui/icons/Add';
 import {useHistory, useRouteMatch} from 'react-router';
 import {Fab, Zoom} from '@material-ui/core';
-import {cls} from '../../common/util/cls';
-import './style.scss';
 
 const postPath = '/post';
 
@@ -34,12 +32,11 @@ function AddButton(props: TAddButtonProps): JSX.Element {
     history.push('/post');
   }, []);
 
-  return <div className={cls({
-    hidden: !opened,
-  }, props.className)}>
+  return <div className={props.className}>
     <Zoom
       in={opened}
       timeout={zoomTransition}
+      unmountOnExit
     >
       <Fab
         color="primary"

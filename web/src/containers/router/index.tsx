@@ -1,5 +1,5 @@
 import React from 'react';
-import {Switch, Route, Router} from 'react-router';
+import {Switch, Route, Router, Redirect} from 'react-router';
 import {createBrowserHistory} from 'history';
 import MainPage from '../main';
 import MainLayout from '../layout/main-layout';
@@ -33,6 +33,9 @@ function RouteConfig(): JSX.Element {
               </Route>;
             }))}
           </Switch>
+          <Route path={'/**'}>
+            <Redirect to={{pathname: '/all'}}/>
+          </Route>
         </MainLayout>
       </Route>
     </Router>

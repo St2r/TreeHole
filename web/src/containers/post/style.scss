@@ -5,6 +5,10 @@
 
 .post-toolbar {
   position: absolute;
-  bottom: 40px;
+  bottom: 50px;
   right: 40px;
+
+  .MuiFormControlLabel-label {
+    font-size: 14px;
+  }
 }

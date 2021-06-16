@@ -2,7 +2,12 @@ import React, {useState} from 'react';
 import {Editor} from '@tinymce/tinymce-react';
 import './style.scss';
 import CreateIcon from '@material-ui/icons/Create';
-import {Button, Checkbox, FormControlLabel} from '@material-ui/core';
+import {Button, Checkbox, FormControlLabel, Zoom} from '@material-ui/core';
+
+const zoomTransition = {
+  enter: 300,
+  exit: 300,
+};
 
 function PostPage(): JSX.Element {
   const [isAnonymous, setAnonymous] = useState(false);
@@ -10,15 +15,19 @@ function PostPage(): JSX.Element {
   return (
     <>
       <div className='post-toolbar'>
-        <FormControlLabel
-          control={<Checkbox
-            color='primary'
-            checked={isAnonymous}
-            onChange={(e) => setAnonymous(e.target.checked)}
-          />}
-          label='匿名发帖'
-        />
-        <Button color='primary' variant='contained' startIcon={<CreateIcon/>}>发布</Button>
+        <Zoom in={true} timeout={zoomTransition} style={{transitionDelay: '300ms'}}>
+          <div>
+            <FormControlLabel
+              control={<Checkbox
+                color='secondary'
+                checked={isAnonymous}
+                onChange={(e) => setAnonymous(e.target.checked)}
+              />}
+              label='匿名发帖'
+            />
+            <Button color='primary' variant='contained' startIcon={<CreateIcon/>}>发布</Button>
+          </div>
+        </Zoom>
       </div>
 
       <div className='editor'>
@@ -27,8 +36,8 @@ function PostPage(): JSX.Element {
           init={{
             height: 600,
             menubar: false,
-            initialValue: '发表你的文章',
             statusbar: false,
+            placeholder: '发表你的文章...',
           }}/>
       </div>
     </>
