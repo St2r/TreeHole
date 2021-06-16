@@ -1,4 +1,16 @@
 .user-bar-components {
   display: flex;
   align-items: center;
+
+  >* {
+    margin-right: 20px;
+  }
+
+  .user-bar-avatar {
+    width: 36px;
+    height: 36px;
+  }
+
+  .user-bar-badge {
+  }
 }

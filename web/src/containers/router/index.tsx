@@ -20,15 +20,15 @@ function RouteConfig(): JSX.Element {
           <Switch>
             <Route path={'/passport'}>
               <Switch>
-                <Route path={'/passport/login'} component={LoginPage}/>
-                <Route path={'/passport/register'} component={RegisterPage}/>
+                <Route path={'/passport/login'} exact component={LoginPage}/>
+                <Route path={'/passport/register'} exact component={RegisterPage}/>
               </Switch>
             </Route>
-            <Route path={'/post'} component={PostPage}/>
+            <Route path={'/post'} exact component={PostPage}/>
             {detailRouteConfig()}
             {userRouteConfig()}
             {tabs.map(((value, index) => {
-              return <Route key={index} path={'/' + value}>
+              return <Route key={index} exact path={'/' + value}>
                 <MainPage/>
               </Route>;
             }))}

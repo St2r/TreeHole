@@ -15,7 +15,7 @@ const tabs = ['/all', '/feed', '/xxx', '/ooo'];
 function MainLayout(props: TMainLayoutProps): JSX.Element {
   const match = useRouteMatch({
     path: tabs,
-    strict: false,
+    strict: true,
   });
 
   const [tabIndex, setTabIndex] = useState<false | number>(false);
@@ -31,11 +31,16 @@ function MainLayout(props: TMainLayoutProps): JSX.Element {
     history.push(tabs[newValue]);
   }, []);
 
+  const handleClickTitle = useCallback(() => {
+    history.push('/all');
+  }, []);
+
   return (
     <>
       <AppBar position="sticky" color="primary" variant="outlined">
         <Toolbar variant="dense">
-          <Typography variant="h6" color="inherit">
+          <Typography style={{cursor: 'pointer'}}
+            variant="h6" color="inherit" onClick={handleClickTitle}>
             TreeHole
           </Typography>
 
