@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useRef, useState} from 'react';
 import {Editor} from '@tinymce/tinymce-react';
 import './style.scss';
 import CreateIcon from '@material-ui/icons/Create';
@@ -11,6 +11,7 @@ const zoomTransition = {
 
 function PostPage(): JSX.Element {
   const [isAnonymous, setAnonymous] = useState(false);
+  const editorRef = useRef<any>(null);
 
   return (
     <>
@@ -32,6 +33,8 @@ function PostPage(): JSX.Element {
 
       <div className='editor'>
         <Editor
+          onInit={(evt, editor) => editorRef.current = editor}
+          onChange={() => console.log(editorRef.current.getContent())}
           apiKey='pzsbp1xb6j13dd4aduwebi7815hzj1upr7v42ojpcbc8c7pu'
           init={{
             height: 600,

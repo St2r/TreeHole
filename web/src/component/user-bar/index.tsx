@@ -27,8 +27,9 @@ function UserBar(props: TUserIconProps): JSX.Element {
         alt="Remy Sharp"
         onClick={onClickAvatar}
         onFocus={() => console.log('focus')}
+        style={{cursor: 'pointer'}}
         src="https://avatars.githubusercontent.com/u/37372979?s=64&v=4"/>
-      <Badge className="user-bar-badge" color="secondary" badgeContent={1}>
+      <Badge className="user-bar-badge" style={{cursor: 'pointer'}} color="secondary" badgeContent={1}>
         <MailIcon onClick={openMail}/>
       </Badge>
     </div>

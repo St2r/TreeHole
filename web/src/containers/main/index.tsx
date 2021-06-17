@@ -6,8 +6,37 @@ import './style.scss';
 const article: TArticle = {
   articleId: 'sss',
   title: 'title',
-  content: 'content',
-  comment: [],
+  content: '<p>林广艳永远的神林广艳永远的神林广艳永远的神林广艳永远的神林广艳永远的神林广艳永远的神林广艳永远的神林广艳永远的神林广艳永远的神</p>\n' +
+    '<p>申雪萍永远的神</p>',
+  comment: [
+    {
+      commentId: 'ssfdhsajk',
+      content: '评论1',
+      createTime: (new Date()).getTime(),
+      author: null,
+      reply: [
+        {
+          commentId: 'ssfdhsajk',
+          content: '评论1',
+          createTime: (new Date()).getTime(),
+          author: null,
+        },
+      ],
+    },
+    {
+      commentId: 'ssfdhsajk',
+      content: '评论2',
+      createTime: (new Date()).getTime(),
+      author: null,
+      reply: [],
+    },
+    {
+      commentId: 'ssfdhsajk',
+      content: '评论3',
+      createTime: (new Date()).getTime(),
+      author: null,
+      reply: [],
+    }],
   author: {
     userId: 'userId',
     username: 'username',
