@@ -2,20 +2,19 @@ import React, {useCallback, useEffect, useState} from 'react';
 import {AppBar, Tab, Tabs, Toolbar, Typography} from '@material-ui/core';
 import {useHistory, useRouteMatch} from 'react-router';
 import UserBar from '../../../component/user-bar';
-import './style.scss';
 import AddButton from '../../../component/add-button';
+import {tabs} from '../../../common/config/tabs';
+import './style.scss';
 
 
 type TMainLayoutProps = {
   children?: JSX.Element | JSX.Element[],
 }
 
-const tabs = ['/all', '/feed', '/xxx', '/ooo'];
-
 function MainLayout(props: TMainLayoutProps): JSX.Element {
   const match = useRouteMatch({
     path: tabs,
-    strict: false,
+    strict: true,
   });
 
   const [tabIndex, setTabIndex] = useState<false | number>(false);
@@ -31,11 +30,16 @@ function MainLayout(props: TMainLayoutProps): JSX.Element {
     history.push(tabs[newValue]);
   }, []);
 
+  const handleClickTitle = useCallback(() => {
+    history.push('/all');
+  }, []);
+
   return (
     <>
       <AppBar position="sticky" color="primary" variant="outlined">
         <Toolbar variant="dense">
-          <Typography variant="h6" color="inherit">
+          <Typography style={{cursor: 'pointer'}}
+            variant="h6" color="inherit" onClick={handleClickTitle}>
             TreeHole
           </Typography>
 

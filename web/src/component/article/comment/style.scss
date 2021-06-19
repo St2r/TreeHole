@@ -1,0 +1,15 @@
+.article-comment-wrapper {
+  position: relative;
+  background: #C4C4C4;
+  border-radius: 5px;
+  min-height: 25px;
+
+  &:before {
+    content: '';
+    position: absolute;
+    left: 50px;
+    top: -30px;
+    border: transparent solid 15px;
+    border-bottom-color: #C4C4C4;
+  }
+}

@@ -1,6 +1,4 @@
 .article-card {
-  width: 600px;
-  min-height: 200px;
   padding: 30px;
   display: flex;
 
@@ -10,23 +8,22 @@
     .article-card-avatar {
       margin: 0 auto;
     }
-
-    .article-card-follow {
-      margin: 0 4px;
-    }
   }
 
   .article-card-right {
     flex-grow: 1;
     padding: 5px;
+    width: 600px;
   }
 
   .article-card-content {
-    padding: 5px;
-    min-height: 150px;
-  }
+    margin: 10px 5px;
+    min-height: 100px;
+    max-height: 400px;
+    overflow: hidden;
 
-  .article-card-comment {
-    background: rgba(0, 0, 0, 0.2);
+    > * {
+      line-break: anywhere;
+    }
   }
 }

@@ -1,7 +1,9 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import {TArticle} from '../../../common/type/article';
-import {Avatar, Chip, Paper} from '@material-ui/core';
+import {Avatar, Card, Chip, Paper} from '@material-ui/core';
 import './style.scss';
+import {useHistory} from 'react-router';
+import ArticleComment from '../comment';
 
 export type TArticleCardProps = {
   article: TArticle,
@@ -10,30 +12,36 @@ export type TArticleCardProps = {
 
 function ArticleCard(props: TArticleCardProps): JSX.Element {
   const {
-    article: {
-      content,
-    },
+    article,
     className,
   } = props;
+
+  const history = useHistory();
+
+  const openArticleDetail = useCallback(() => {
+    console.log('todo open detail page');
+    history.push('/detail');
+  }, []);
+
   return <div className={className}>
-    <Paper className='article-card' variant='outlined'>
+    <Card className='article-card' variant='outlined'>
       <div className="article-card-left">
         <Avatar
           className="article-card-avatar"
           alt="Unknown"
           src="https://avatars.githubusercontent.com/u/37372979?s=64&v=4"/>
-        <Chip
-          className="article-card-follow"
-          label={'关注'}
-          color='primary' size='small' clickable/>
       </div>
       <div className="article-card-right">
-        <Chip label={'匿名用户'} variant='outlined'/>
-        <Chip label={'2021-01-01'} variant='outlined' size='small'/>
-        <div className="article-card-content">{content}</div>
-        <div className="article-card-comment">评论</div>
+        <Chip className='article-card-username' label={article.author.username} variant='outlined'/>
+        <Chip className='article-card-publish-date' label={'2021-01-01'} variant='outlined' size='small'/>
+        <div className="article-card-content" dangerouslySetInnerHTML={{__html: article.content}}/>
+
+        <ArticleComment
+          articleId={article.articleId}
+          comments={article.comment}
+        />
       </div>
-    </Paper>
+    </Card>
   </div>;
 }
 

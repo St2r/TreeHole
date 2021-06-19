@@ -5,5 +5,4 @@ export type TComment = {
   content: string,
   createTime: number,
   author: TUser,
-  reply: Omit<TComment, 'reply'>
 }

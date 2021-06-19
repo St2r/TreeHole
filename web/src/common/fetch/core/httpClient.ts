@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {tokenTransform} from './httpTransform';
+import {jsonTransform, tokenTransform} from './httpTransform';
 
 const HttpClient = axios.create({
   baseURL: 'http://localhost:8088',
@@ -8,7 +8,7 @@ const HttpClient = axios.create({
     'Content-Type': 'application/json',
   },
   transformRequest: [tokenTransform],
-  transformResponse: [],
+  transformResponse: [jsonTransform],
 });
 
 export default HttpClient;
