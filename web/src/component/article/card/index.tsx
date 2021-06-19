@@ -1,6 +1,6 @@
 import React, {useCallback} from 'react';
 import {TArticle} from '../../../common/type/article';
-import {Avatar, Chip, Paper} from '@material-ui/core';
+import {Avatar, Card, Chip, Paper} from '@material-ui/core';
 import './style.scss';
 import {useHistory} from 'react-router';
 import ArticleComment from '../comment';
@@ -24,7 +24,7 @@ function ArticleCard(props: TArticleCardProps): JSX.Element {
   }, []);
 
   return <div className={className}>
-    <Paper className='article-card' variant='outlined'>
+    <Card className='article-card' variant='outlined'>
       <div className="article-card-left">
         <Avatar
           className="article-card-avatar"
@@ -41,7 +41,7 @@ function ArticleCard(props: TArticleCardProps): JSX.Element {
           comments={article.comment}
         />
       </div>
-    </Paper>
+    </Card>
   </div>;
 }
 

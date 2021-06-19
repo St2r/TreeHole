@@ -6,6 +6,7 @@ import com.example.server.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.UUID;
 
 @CrossOrigin
@@ -17,7 +18,8 @@ public class UserController {
 
     // 登录
     @RequestMapping(value = "/doLogin", method = RequestMethod.POST)
-    public User doLogin(@RequestBody User user) {
+    public User doLogin(@RequestBody User user, HttpServletResponse response) {
+        response.setStatus(301);
         if(user.getUsername() == null || user.getPassword() == null){
             return null;
         }
@@ -30,6 +32,7 @@ public class UserController {
         }
         else {
             StpUtil.setLoginId(userInfo.getID());
+            response.setStatus(200);
             return userInfo;
         }
     }

@@ -1,18 +1,31 @@
 import React, {useCallback, useState} from 'react';
 import './style.scss';
-import {Button, Card, CardActions, CardContent, CardHeader, TextField} from '@material-ui/core';
+import {Button, Card, CardActions, CardContent, CardHeader, Snackbar, TextField} from '@material-ui/core';
 import {httpDoLogin} from '../../../common/fetch/passport';
+import {useHistory} from 'react-router';
+import {Alert} from '@material-ui/lab';
 
 function LoginPage(): JSX.Element {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [snackType, setSnackType] = useState(0);
+
+  const history = useHistory();
 
   const onClickLogin = useCallback((username, password) => {
     httpDoLogin({
       username,
       password,
-    }).then((r) => console.log(r));
-    console.log('on click login');
+    }).then((r) => {
+      console.log(r);
+      setSnackType(1);
+    }, () => {
+      setSnackType(2);
+    });
+  }, []);
+
+  const onClickRegister = useCallback(() => {
+    history.push('/passport/register');
   }, []);
 
   return <div className='login-page'>
@@ -27,14 +40,36 @@ function LoginPage(): JSX.Element {
           onChange={(event) => setPassword(event.target.value)}/>
       </CardContent>
       <CardActions>
-        <Button
-          className='login-btn'
-          color='primary'
-          variant='contained'
-          size='large'
-          onClick={() => onClickLogin(username, password)}>登录</Button>
+        <div className='login-btn-group'>
+          <Button
+            className='login-btn'
+            color='primary'
+            variant='contained'
+            size='large'
+            onClick={() => onClickLogin(username, password)}>登录</Button>
+          <Button
+            className='login-register-btn'
+            onClick={onClickRegister}
+            color='primary'
+            variant='text'
+          >没有账号？快来注册</Button>
+        </div>
       </CardActions>
     </Card>
+    <Snackbar
+      open={snackType > 0}
+      anchorOrigin={{vertical: 'top', horizontal: 'center'}} autoHideDuration={2000}
+      onClose={() => setSnackType(0)}>
+      {
+        snackType === 1 ?
+          <Alert severity="success">
+            登录成功
+          </Alert> :
+          <Alert severity="error">
+            登录失败
+          </Alert>
+      }
+    </Snackbar>
   </div>;
 }
 
