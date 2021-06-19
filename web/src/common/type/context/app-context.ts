@@ -1,3 +1,5 @@
+import {TUser} from '../user';
+
 export type TAppContext = {
-  snackMsg: (msg: string, type: 'error' | 'success') => void,
+  user: TUser & { isLogin: boolean };
 }

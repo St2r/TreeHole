@@ -1,8 +1,10 @@
-import React, {useCallback, useState} from 'react';
+import React, {useCallback, useContext, useState} from 'react';
 import {Avatar, Badge} from '@material-ui/core';
 import MailIcon from '@material-ui/icons/Mail';
 import './style.scss';
 import {useHistory} from 'react-router';
+import {TAppContext} from '../../common/type/context/app-context';
+import {AppContext} from '../../containers/context';
 
 type TUserIconProps = {
   position: 'appBar',
@@ -10,8 +12,9 @@ type TUserIconProps = {
 }
 
 function UserBar(props: TUserIconProps): JSX.Element {
-  const [login, setLogin] = useState(false);
   const history = useHistory();
+  const appContext = useContext<TAppContext>(AppContext);
+
   const openMail = useCallback(() => {
     history.push('/mail');
   }, []);
@@ -26,7 +29,7 @@ function UserBar(props: TUserIconProps): JSX.Element {
 
   return <div className={props.className}>
     <div className="user-bar-components">
-      {login ?
+      {appContext.user.isLogin ?
         <Avatar
           className="user-bar-avatar"
           sizes='small'

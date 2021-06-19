@@ -1,6 +1,7 @@
 export type TUser = {
-  userAnonymousId?: string | undefined,
-  userRealId?: string | undefined,
   username: string,
+  id: string,
+  // eslint-disable-next-line camelcase
+  anonymous_id: string,
   usertype?: 'Anonymous' | 'Real' | undefined,
 }

@@ -1,9 +1,12 @@
-import React, {useCallback, useState} from 'react';
+import React, {useCallback, useContext, useState} from 'react';
 import './style.scss';
 import {Button, Card, CardActions, CardContent, CardHeader, Snackbar, TextField} from '@material-ui/core';
 import {httpDoLogin} from '../../../common/fetch/passport';
 import {useHistory} from 'react-router';
 import {Alert} from '@material-ui/lab';
+import {TAppContext} from '../../../common/type/context/app-context';
+import {AppContext} from '../../context';
+import {dark} from '@material-ui/core/styles/createPalette';
 
 function LoginPage(): JSX.Element {
   const [username, setUsername] = useState('');
@@ -12,12 +15,22 @@ function LoginPage(): JSX.Element {
 
   const history = useHistory();
 
+  const appContext = useContext<TAppContext>(AppContext);
+
   const onClickLogin = useCallback((username, password) => {
     httpDoLogin({
       username,
       password,
     }).then((r) => {
-      console.log(r);
+      // eslint-disable-next-line camelcase
+      const {username, id, anonymous_id} = r.data;
+      appContext.user = {
+        isLogin: true,
+        username,
+        id,
+        anonymous_id,
+      };
+      console.log(appContext);
       setSnackType(1);
     }, () => {
       setSnackType(2);
