@@ -54,6 +54,9 @@ public class UserController {
         }
         user.setID(String.valueOf(UUID.randomUUID()));
         user.setAnonymous_id(String.valueOf(UUID.randomUUID()));
+        if(user.getMobile() == null){
+            user.setMobile("");
+        }
         userService.addUser(user);
 
         User userInfo = userService.queryUserByName(user.getUsername());
