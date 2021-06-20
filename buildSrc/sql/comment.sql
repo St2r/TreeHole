@@ -7,5 +7,7 @@ create table TreeHole.comment
     create_time datetime default CURRENT_TIMESTAMP not null,
     father_id   bigint                             not null,
     com_type    int                                not null,
-    username    varchar(25)                        null
+    username    varchar(25)                        null,
+    avatar      text                               null
 );
+
