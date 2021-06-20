@@ -20,7 +20,7 @@ public interface ArticleService {
 
     void deleteArticle(int id);
 
-    List<Article> QueryArticles(int offset, int size);
+    List<Article> QueryArticles(int offset, int size, String type);
 
     // 获取评论应该通知的 user id
     String getTargetUserId(int father_id);
