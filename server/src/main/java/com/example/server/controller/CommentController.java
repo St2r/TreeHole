@@ -10,6 +10,8 @@ import com.example.server.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @CrossOrigin
 @RestController
 @RequestMapping("/comment")
@@ -25,8 +27,7 @@ public class CommentController {
 
     // 发表评论
     @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public String CreateComment(@RequestBody Comment comment) {
-        System.out.println(comment);
+    public List<Comment> CreateComment(@RequestBody Comment comment) {
         if(comment.getContent() != null && comment.getAuthor_id() != null && comment.getFather_id() != 0 && comment.getCom_type() != 0){
             User user = userService.getUserInfoById(comment.getAuthor_id());
             System.out.println(user);
@@ -52,9 +53,10 @@ public class CommentController {
 //            }
 //            messageService.generateMessage(comment, target_user_id, brief_msg);
 
-            return "{\"msg\": \"Create Success\"}";
+            return null;
         }
-        return "{\"msg\": \"Params Error\"}";
+        // 获取该文章下评论列表
+        return commentService.queryChildComments(comment.getFather_id(), 2);
     }
 
     // 删除评论
