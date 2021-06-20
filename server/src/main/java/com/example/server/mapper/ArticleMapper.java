@@ -9,7 +9,7 @@ import java.util.List;
 @Repository
 @Mapper
 public interface ArticleMapper {
-    @Insert("insert into article(title,content,author_id) values (#{title},#{content},#{author_id})")
+    @Insert("insert into article(title,content,author_id,is_private) values (#{title},#{content},#{author_id}, #{is_private})")
     void createArticle(Article article);
 
     @Select("select * from article where author_id = #{author_id}")
