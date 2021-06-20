@@ -46,15 +46,18 @@ public class UserController {
 
     // 注册
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public String Register(@RequestBody User user) {
+    public User Register(@RequestBody User user, HttpServletResponse response) {
         // 先判断有没有相同用户名
         if(userService.queryUserByName(user.getUsername()) != null){
-            return "Username Exists";
+            response.setStatus(301);
+            return null;
         }
         user.setID(String.valueOf(UUID.randomUUID()));
         user.setAnonymous_id(String.valueOf(UUID.randomUUID()));
         userService.addUser(user);
-        return "Register Success";
+
+        User userInfo = userService.queryUserByName(user.getUsername());
+        return userInfo;
     }
 
     // 退出登录
