@@ -33,6 +33,7 @@ public class ArticleController {
             if(user.getID().equals(article.getAuthor_id())){
                 article.setUsername(user.getUsername());
             }
+            article.setTitle("");
             articleService.createArticle(article);
             return "Create Success";
         }
