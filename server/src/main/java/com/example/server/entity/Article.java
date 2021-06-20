@@ -13,8 +13,8 @@ public class Article {
     private String author_id;
     // 是否匿名  0 -- 公开  1 -- 匿名
     private int is_private;
-    private Date create_time;
-    private Date modify_time;
+    private String create_time;
+    private String modify_time;
     private List<Comment> comments;
     private String username;
     private String type;
