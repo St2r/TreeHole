@@ -22,5 +22,5 @@ public interface CommentMapper {
     Comment queryCommentById(int id);
 
     @Select("select * from comment where com_type = #{com_type} and father_id = #{father_id}")
-    List<Comment> queryChildComment(int father_id, int type);
+    List<Comment> queryChildComment(int father_id, int com_type);
 }
