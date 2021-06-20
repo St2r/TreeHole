@@ -16,4 +16,5 @@ public class Comment {
     private int com_type;
     private List<Comment> comments;
     private String username;
+    private String avatar;
 }

@@ -33,6 +33,7 @@ public class CommentController {
             System.out.println(user);
             if(user.getID().equals(comment.getAuthor_id())){
                 comment.setUsername(user.getUsername());
+                comment.setAvatar(user.getAvatar());
             }
             commentService.createComment(comment);
 
