@@ -1,4 +1,4 @@
-create table treehole.article
+create table TreeHole.article
 (
     id          bigint auto_increment
         primary key,

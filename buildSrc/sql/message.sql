@@ -1,4 +1,4 @@
-create table treehole.message
+create table TreeHole.message
 (
     id              bigint auto_increment
         primary key,

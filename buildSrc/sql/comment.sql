@@ -1,4 +1,4 @@
-create table treehole.comment
+create table TreeHole.comment
 (
     id          bigint auto_increment
         primary key,
