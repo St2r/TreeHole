@@ -18,4 +18,5 @@ public class Article {
     private List<Comment> comments;
     private String username;
     private String type;
+    private String avatar;
 }

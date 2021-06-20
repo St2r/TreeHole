@@ -32,6 +32,7 @@ public class ArticleController {
             User user = userService.getUserInfoById(article.getAuthor_id());
             if(user.getID().equals(article.getAuthor_id())){
                 article.setUsername(user.getUsername());
+                article.setAvatar(user.getAvatar());
             }
             article.setTitle("");
             articleService.createArticle(article);
