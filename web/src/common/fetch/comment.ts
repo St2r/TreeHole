@@ -5,7 +5,8 @@ type TNewCommentProps = {
   // eslint-disable-next-line camelcase
   father_id: string,
   content: string,
-  type: number,
+  // eslint-disable-next-line camelcase
+  com_type: number,
   // eslint-disable-next-line camelcase
   author_id: string,
 }

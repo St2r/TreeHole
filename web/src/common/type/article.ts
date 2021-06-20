@@ -1,7 +1,7 @@
 import {TComment} from './comment';
 
 export type TArticle = {
-  articleId: string,
+  id: string,
   title: string,
   content: string,
   comments: TComment[],

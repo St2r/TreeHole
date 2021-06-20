@@ -4,6 +4,7 @@ import {TComment} from '../../../common/type/comment';
 import './style.scss';
 import {httpNewComment} from '../../../common/fetch/comment';
 import {AppContext} from '../../../containers/context';
+import {useHistory} from 'react-router';
 
 type TArticleCommentProps = {
   articleId: string,
@@ -38,7 +39,13 @@ function ArticleComment(props: TArticleCommentProps): JSX.Element {
 
   const appContext = useContext(AppContext);
 
+  const history = useHistory();
+
   const handlePostComment = useCallback(() => {
+    if (!appContext.user.isLogin) {
+      history.push('/passport/login');
+      return;
+    }
     if (input.length === 0) {
       appContext.setSnackStatus({
         open: true,
@@ -47,13 +54,13 @@ function ArticleComment(props: TArticleCommentProps): JSX.Element {
       });
       return;
     }
+    console.log(props.articleId);
     httpNewComment({
-      type: 2,
+      com_type: 2,
       content: input,
       father_id: props.articleId,
       author_id: isAnonymous ? appContext.user.anonymous_id : appContext.user.id,
     }).then((r) => {
-      console.log(r)
       appContext.setSnackStatus({
         open: true,
         msg: '发送成功',
@@ -78,7 +85,7 @@ function ArticleComment(props: TArticleCommentProps): JSX.Element {
       props.enableWriteComment &&
       <div className='comment-writer-wrapper'>
         <Input
-          className='comment-input' placeholder='输入你的看法'
+          className='comment-input' placeholder='输入你的看法' disabled={!appContext.user.isLogin}
           fullWidth value={input} onChange={(e) => setInput(e.target.value)}/>
         <FormControlLabel
           className='comment-anonymous'

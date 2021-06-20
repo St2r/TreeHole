@@ -38,7 +38,7 @@ function ArticleCard(props: TArticleCardProps): JSX.Element {
         <div className="article-card-content" dangerouslySetInnerHTML={{__html: article.content}}/>
 
         <ArticleComment
-          articleId={article.articleId}
+          articleId={article.id}
           comments={article.comments}
           enableWriteComment={true}
         />
