@@ -1,5 +1,5 @@
-import React, {useCallback, useContext, useState} from 'react';
-import {Avatar, Badge, Button, createStyles, makeStyles, Popper, Theme} from '@material-ui/core';
+import React, {useCallback, useContext} from 'react';
+import {Avatar, Badge, Button} from '@material-ui/core';
 import MailIcon from '@material-ui/icons/Mail';
 import './style.scss';
 import {useHistory} from 'react-router';
@@ -31,6 +31,7 @@ function UserBar(props: TUserIconProps): JSX.Element {
     appContext.setUser({
       isLogin: false,
     });
+    history.push('/all');
   }, []);
 
   return <div className={props.className}>

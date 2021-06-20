@@ -6,5 +6,9 @@ export const tokenTransform: AxiosTransformer = (data, headers) => {
 };
 
 export const jsonTransform: AxiosTransformer = (data, headers) => {
-  return JSON.parse(data);
+  if (data !== undefined && data !== null && data !== '') {
+    return JSON.parse(data);
+  } else {
+    return data;
+  }
 };
