@@ -28,6 +28,7 @@ function RegisterPage(): JSX.Element {
         username,
         id,
         anonymous_id,
+        avatar: r.data.avatar,
       };
       appContext.setUser(user);
       window.sessionStorage.setItem('user', JSON.stringify(user));

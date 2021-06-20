@@ -43,7 +43,7 @@ function UserBar(props: TUserIconProps): JSX.Element {
           alt="Remy Sharp"
           onClick={onClickAvatarLog}
           style={{cursor: 'pointer'}}
-          src="https://avatars.githubusercontent.com/u/37372979?s=64&v=4"/> :
+          src={appContext.user.avatar}/> :
         <Avatar
           className='user-bar-avatar'
           sizes='small'

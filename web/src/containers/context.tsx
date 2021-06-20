@@ -14,6 +14,7 @@ const contextValue = {
     username: '',
     id: '',
     anonymous_id: '',
+    avatar: '',
   },
   setUser: undefined,
   setSnackStatus: undefined,
