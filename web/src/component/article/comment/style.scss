@@ -3,6 +3,7 @@
   background: #C4C4C4;
   border-radius: 5px;
   min-height: 25px;
+  padding: 20px 20px 20px 20px;
 
   &:before {
     content: '';
@@ -11,5 +12,28 @@
     top: -30px;
     border: transparent solid 15px;
     border-bottom-color: #C4C4C4;
+  }
+}
+
+.article-one-comment {
+  margin: 0px 0px 10px;
+  display: flex;
+
+  .one-comment-left {
+    width: 50px;
+
+    .one-comment-avatar {
+      margin: 0 auto;
+    }
+  }
+
+  .one-comment-right {
+    flex-grow: 1;
+    margin-left: 10px;
+    padding: 5px;
+
+    .one-comment-content {
+      margin-top: 10px;
+    }
   }
 }
