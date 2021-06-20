@@ -35,10 +35,10 @@ public class ArticleController {
             }
             article.setTitle("");
             articleService.createArticle(article);
-            return "Create Success";
+            return "{\"msg\": \"Create Success\"}";
         }
         else{
-            return "Params Error";
+            return "{\"msg\": \"Params Error\"}";
         }
     }
 
