@@ -48,7 +48,7 @@ public class ArticleServiceImpl implements ArticleService{
     }
 
     public List<Article> QueryArticles(int offset, int size, String type){
-        if(type.equals("")){
+        if(type.equals("all")){
             return articleMapper.QueryAllArticles(offset, size);
         }
         else{

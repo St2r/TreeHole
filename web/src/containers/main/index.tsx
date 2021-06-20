@@ -4,7 +4,9 @@ import {TArticle} from '../../common/type/article';
 import {tabs} from '../../common/config/tabs';
 import {useRouteMatch} from 'react-router';
 import {Backdrop, CircularProgress, makeStyles} from '@material-ui/core';
+import {ArticleType} from '../../common/config/article-type';
 import './style.scss';
+import {httpFetchArticleList} from '../../common/fetch/article-list';
 
 const article: TArticle = {
   articleId: 'sss',
@@ -45,6 +47,7 @@ const useStyles = makeStyles((theme) => ({
 function MainPage(): JSX.Element {
   const [tabName, setTabName] = useState('');
   const [backdrop, setBackdrop] = useState(false);
+  const [articleList, setArticleList] = useState(undefined);
 
   const classes = useStyles();
 
@@ -56,18 +59,27 @@ function MainPage(): JSX.Element {
   useEffect(() => {
     // 这块用 context 更好，避免多次刷新，懒得改了
     if (match?.path !== undefined && tabs.includes(match?.path)) {
-      setTabName(match!.path);
+      const i = tabs.findIndex((e) => (e === match.path));
+      if (i === 0) {
+        setTabName('all');
+      } else {
+        setTabName(ArticleType[i - 1]);
+      }
     }
   }, [match]);
 
   useEffect(() => {
-    // todo fetch
     if (tabName === '') return;
-    console.log(tabName);
+
     setBackdrop(true);
-    setTimeout(() => {
+    httpFetchArticleList({type: tabName, page: 1}).then((r) => {
+      console.log(r.data);
+      setArticleList(r.data);
       setBackdrop(false);
-    }, 1000);
+    }, (e) => {
+      console.log(e);
+      setBackdrop(false);
+    });
   }, [tabName]);
 
   return <>

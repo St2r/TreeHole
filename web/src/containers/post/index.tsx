@@ -3,9 +3,10 @@ import {Editor} from '@tinymce/tinymce-react';
 import CreateIcon from '@material-ui/icons/Create';
 import {Button, Checkbox, FormControlLabel, MenuItem, Select, Zoom} from '@material-ui/core';
 import {ArticleType} from '../../common/config/article-type';
-import './style.scss';
 import {AppContext} from '../context';
 import {useHistory} from 'react-router';
+import {httpPostArticle} from '../../common/fetch/post';
+import './style.scss';
 
 const zoomTransition = {
   enter: 300,
@@ -27,21 +28,46 @@ function PostPage(): JSX.Element {
     setArticleType(e.target.value);
   }, []);
 
+  const handlePostArticle = useCallback(() => {
+    httpPostArticle({
+      content: editorRef.current.getContent(),
+      author_id: isAnonymous ? appContext.user.anonymous_id : appContext.user.id,
+      type: articleType,
+    }).then((r) => {
+      console.log(r);
+      appContext.setSnackStatus({
+        open: true,
+        type: 'success',
+        msg: '发帖成功',
+      });
+    }, (e) => {
+      console.log(e);
+      appContext.setSnackStatus({
+        open: true,
+        type: 'success',
+        msg: '发帖成功',
+      });
+    });
+  }, [editorRef, isAnonymous, articleType]);
+
   return (
     <>
       <div className='post-toolbar'>
         <Zoom in={true} timeout={zoomTransition} style={{transitionDelay: '300ms'}}>
           <div>
-            <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              value={articleType}
-              onChange={handleArticleTypeChange}
-            >
-              {ArticleType.map((value, index) => {
-                return <MenuItem key={index} value={value}>{value}</MenuItem>;
-              })}
-            </Select>
+            <FormControlLabel
+              labelPlacement={'end'}
+              control={<Select
+                value={articleType}
+                onChange={handleArticleTypeChange}
+                color='primary'
+              >
+                {ArticleType.map((value, index) => {
+                  return <MenuItem key={index} value={value}>{value}</MenuItem>;
+                })}
+              </Select>}
+              label='文章类型'
+            />
             <FormControlLabel
               control={<Checkbox
                 color='secondary'
@@ -50,7 +76,9 @@ function PostPage(): JSX.Element {
               />}
               label='匿名发帖'
             />
-            <Button color='primary' variant='contained' startIcon={<CreateIcon/>}>发布</Button>
+            <Button
+              color='primary' variant='contained' startIcon={<CreateIcon/>}
+              onClick={handlePostArticle}>发布</Button>
           </div>
         </Zoom>
       </div>
@@ -58,7 +86,6 @@ function PostPage(): JSX.Element {
       <div className='editor'>
         <Editor
           onInit={(evt, editor) => editorRef.current = editor}
-          onChange={() => console.log(editorRef.current.getContent())}
           apiKey='pzsbp1xb6j13dd4aduwebi7815hzj1upr7v42ojpcbc8c7pu'
           init={{
             height: 600,

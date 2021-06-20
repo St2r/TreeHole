@@ -30,7 +30,7 @@ public interface ArticleMapper {
     @Delete("delete from article where id=#{id}")
     void deleteArticle(int id);
 
-    @Select("select * from article order by modify_time desc where type = #{type} limit #{size} offset #{offset};")
+    @Select("select * from article where type = #{type} order by modify_time desc limit #{size} offset #{offset};")
     List<Article> QueryArticlesByType(int offset, int size, String type);
 
     @Select("select * from article order by modify_time desc limit #{size} offset #{offset};")

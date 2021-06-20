@@ -5,6 +5,7 @@ import UserBar from '../../../component/user-bar';
 import AddButton from '../../../component/add-button';
 import {tabs} from '../../../common/config/tabs';
 import './style.scss';
+import {ArticleType} from '../../../common/config/article-type';
 
 
 type TMainLayoutProps = {
@@ -45,9 +46,9 @@ function MainLayout(props: TMainLayoutProps): JSX.Element {
 
           <Tabs value={tabIndex} onChange={handleTabChange}>
             <Tab label="全部"/>
-            <Tab label="推荐"/>
-            <Tab label="吐槽"/>
-            <Tab label="表白"/>
+            {ArticleType.map((e, i) => {
+              return <Tab label={e} key={i}/>;
+            })}
           </Tabs>
           <div/>
           <UserBar position='appBar' className="appbar-user"/>
