@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 @Mapper
 public interface UserMapper {
-    @Insert("insert into user(username,password,usertype, id, anonymous_id) values (#{username},#{password},#{usertype},#{ID},#{anonymous_id})")
+    @Insert("insert into user(username,password,usertype, id, anonymous_id, mobile) values (#{username},#{password},#{usertype},#{ID},#{anonymous_id}, #{mobile})")
     void addUser(User user);
 
     @Select("select * from user where username = #{username}")

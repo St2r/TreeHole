@@ -56,7 +56,7 @@ function RegisterPage(): JSX.Element {
         <TextField
           className='input-pwd' type='password' label="密码" variant="outlined" value={password}
           onChange={(t) => setPassword(t.target.value)}/>
-        <TextField
+        <TextField error={password != confirmPassword}
           className='input-pwd-check' type='password' label="确认密码" variant="outlined" value={confirmPassword}
           onChange={(t) => setConfirmPassword(t.target.value)}/>
       </CardContent>
