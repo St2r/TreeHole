@@ -29,8 +29,17 @@ function PostPage(): JSX.Element {
   }, []);
 
   const handlePostArticle = useCallback(() => {
+    const content = editorRef.current.getContent();
+    if (content.replace(/<\/?.+?>/g, '').length === 0) {
+      appContext.setSnackStatus({
+        open: true,
+        type: 'error',
+        msg: '文章内容不能为空',
+      });
+      return;
+    }
     httpPostArticle({
-      content: editorRef.current.getContent(),
+      content: content,
       author_id: isAnonymous ? appContext.user.anonymous_id : appContext.user.id,
       type: articleType,
     }).then((r) => {

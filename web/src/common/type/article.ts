@@ -6,5 +6,11 @@ export type TArticle = {
   title: string,
   content: string,
   comment: TComment[],
-  author: TUser,
+  createTime: string,
+  // eslint-disable-next-line camelcase
+  modify_time: string,
+  // eslint-disable-next-line camelcase
+  is_private: number,
+  type: string,
+  username: string,
 }

@@ -8,36 +8,6 @@ import {ArticleType} from '../../common/config/article-type';
 import './style.scss';
 import {httpFetchArticleList} from '../../common/fetch/article-list';
 
-const article: TArticle = {
-  articleId: 'sss',
-  title: 'title',
-  content: '<p>林广艳永远的神林广艳永远的神林广艳永远的神林广艳永远的神林广艳永远的神林广艳永远的神林广艳永远的神林广艳永远的神林广艳永远的神</p>\n' +
-    '<p>申雪萍永远的神</p>',
-  comment: [
-    {
-      commentId: 'ssfdhsajk',
-      content: '评论1',
-      createTime: (new Date()).getTime(),
-      author: null,
-    },
-    {
-      commentId: 'ssfdhsajk',
-      content: '评论2',
-      createTime: (new Date()).getTime(),
-      author: null,
-    },
-    {
-      commentId: 'ssfdhsajk',
-      content: '评论3',
-      createTime: (new Date()).getTime(),
-      author: null,
-    }],
-  author: {
-    userId: 'userId',
-    username: 'username',
-  },
-};
-
 const useStyles = makeStyles((theme) => ({
   backdrop: {
     zIndex: theme.zIndex.drawer + 1,
@@ -47,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
 function MainPage(): JSX.Element {
   const [tabName, setTabName] = useState('');
   const [backdrop, setBackdrop] = useState(false);
-  const [articleList, setArticleList] = useState(undefined);
+  const [articleList, setArticleList] = useState<TArticle[]>([]);
 
   const classes = useStyles();
 
@@ -87,9 +57,9 @@ function MainPage(): JSX.Element {
       <CircularProgress color="secondary" size={200}/>
     </Backdrop>
     <div className='main-page'>
-      <ArticleCard className='main-page-item' article={article}/>
-      <ArticleCard className='main-page-item' article={article}/>
-      <ArticleCard className='main-page-item' article={article}/>
+      {articleList.map((article) => {
+        return <ArticleCard className='main-page-item' article={article} key={article.articleId}/>;
+      })}
     </div>
     {/*  todo 骨架屏 摸了 */}
   </>;

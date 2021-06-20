@@ -51,7 +51,7 @@ function UserBar(props: TUserIconProps): JSX.Element {
           style={{cursor: 'pointer'}}
         />
       }
-      <Badge className="user-bar-badge" style={{cursor: 'pointer'}} color="secondary" badgeContent={1}>
+      <Badge className="user-bar-badge" style={{cursor: 'pointer'}} color="secondary" badgeContent={0}>
         <MailIcon onClick={openMail}/>
       </Badge>
       {appContext.user.isLogin && <Button className='user-bar-logout' variant='text' onClick={handleLogout}>登出</Button>}

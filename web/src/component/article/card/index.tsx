@@ -16,6 +16,8 @@ function ArticleCard(props: TArticleCardProps): JSX.Element {
     className,
   } = props;
 
+  const username = (article.username === null || article.username === '') ? '匿名用户' : article.username;
+
   const history = useHistory();
 
   const openArticleDetail = useCallback(() => {
@@ -32,14 +34,13 @@ function ArticleCard(props: TArticleCardProps): JSX.Element {
           src="https://avatars.githubusercontent.com/u/37372979?s=64&v=4"/>
       </div>
       <div className="article-card-right">
-        <Chip className='article-card-username' label={article.author.username} variant='outlined'/>
+        <Chip className='article-card-username' label={username} variant='outlined'/>
         <Chip className='article-card-publish-date' label={'2021-01-01'} variant='outlined' size='small'/>
         <div className="article-card-content" dangerouslySetInnerHTML={{__html: article.content}}/>
-
-        <ArticleComment
-          articleId={article.articleId}
-          comments={article.comment}
-        />
+        {/*<ArticleComment*/}
+        {/*  articleId={article.articleId}*/}
+        {/*  comments={article.comment}*/}
+        {/*/>*/}
       </div>
     </Card>
   </div>;
