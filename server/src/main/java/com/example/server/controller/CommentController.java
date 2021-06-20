@@ -51,9 +51,9 @@ public class CommentController {
             }
             messageService.generateMessage(comment, target_user_id, brief_msg);
 
-            return "Create Success";
+            return "{\"msg\": \"Create Success\"}";
         }
-        return "Params Error";
+        return "{\"msg\": \"Params Error\"}";
     }
 
     // 删除评论
