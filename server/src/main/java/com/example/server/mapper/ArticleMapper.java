@@ -9,7 +9,7 @@ import java.util.List;
 @Repository
 @Mapper
 public interface ArticleMapper {
-    @Insert("insert into article(title,content,author_id,is_private) values (#{title},#{content},#{author_id}, #{is_private})")
+    @Insert("insert into article(title,content,author_id,is_private,type) values (#{title},#{content},#{author_id}, #{is_private}, #{type})")
     void createArticle(Article article);
 
     @Select("select * from article where author_id = #{author_id}")
@@ -30,6 +30,9 @@ public interface ArticleMapper {
     @Delete("delete from article where id=#{id}")
     void deleteArticle(int id);
 
+    @Select("select * from article order by modify_time desc where type = #{type} limit #{size} offset #{offset};")
+    List<Article> QueryArticlesByType(int offset, int size, String type);
+
     @Select("select * from article order by modify_time desc limit #{size} offset #{offset};")
-    List<Article> QueryArticles(int offset, int size);
+    List<Article> QueryAllArticles(int offset, int size);
 }

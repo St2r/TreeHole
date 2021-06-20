@@ -17,4 +17,5 @@ public class Article {
     private Date modify_time;
     private List<Comment> comments;
     private String username;
+    private String type;
 }

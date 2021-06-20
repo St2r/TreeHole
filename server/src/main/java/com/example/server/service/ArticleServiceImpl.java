@@ -47,9 +47,13 @@ public class ArticleServiceImpl implements ArticleService{
         articleMapper.deleteArticle(id);
     }
 
-    public List<Article> QueryArticles(int offset, int size){
-        List<Article> articles = articleMapper.QueryArticles(offset, size);
-        return articles;
+    public List<Article> QueryArticles(int offset, int size, String type){
+        if(type.equals("")){
+            return articleMapper.QueryAllArticles(offset, size);
+        }
+        else{
+            return articleMapper.QueryArticlesByType(offset, size, type);
+        }
     }
 
     @Override

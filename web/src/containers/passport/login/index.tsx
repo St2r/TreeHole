@@ -1,16 +1,16 @@
 import React, {useCallback, useContext, useState} from 'react';
-import './style.scss';
-import {Button, Card, CardActions, CardContent, CardHeader, Popover, Snackbar, TextField} from '@material-ui/core';
+import {Button, Card, CardActions, CardContent, CardHeader, Snackbar, TextField} from '@material-ui/core';
 import {httpDoLogin} from '../../../common/fetch/passport';
 import {useHistory} from 'react-router';
 import {Alert} from '@material-ui/lab';
 import {TAppContext} from '../../../common/type/context/app-context';
 import {AppContext} from '../../context';
-import {dark} from '@material-ui/core/styles/createPalette';
+import './style.scss';
 
 function LoginPage(): JSX.Element {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  // todo unmount时机导致登录成功的msg不显示
   const [snackType, setSnackType] = useState(0);
 
   const history = useHistory();
@@ -31,13 +31,13 @@ function LoginPage(): JSX.Element {
         anonymous_id,
       };
       appContext.setUser(user);
-      appContext.user.isLogin = true;
       window.sessionStorage.setItem('user', JSON.stringify(user));
+      history.push('/all');
       setSnackType(1);
     }, () => {
       setSnackType(2);
     });
-  }, []);
+  }, [username, password]);
 
   const onClickRegister = useCallback(() => {
     history.push('/passport/register');
