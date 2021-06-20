@@ -122,7 +122,7 @@ public class ArticleController {
 
     // 获取首页文章
     @RequestMapping(value = "/query", method = RequestMethod.GET)
-    public List<Article> DeleteArticle(@RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "size", required = false) Integer size, @RequestParam(value = "type", defaultValue = "") String type) {
+    public List<Article> GetArticle(@RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "size", required = false) Integer size, @RequestParam(value = "type", defaultValue = "") String type) {
         if(page == null) page = 1;
         if(size == null) size = 10;
         List<Article> articles = articleService.QueryArticles((page-1)*size, size, type);
