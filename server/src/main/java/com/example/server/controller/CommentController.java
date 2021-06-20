@@ -27,7 +27,7 @@ public class CommentController {
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public String CreateComment(@RequestBody Comment comment) {
         System.out.println(comment);
-        if(comment.getContent() != null && comment.getAuthor_id() != null && comment.getFather_id() != 0 && comment.getCom_Type() != 0){
+        if(comment.getContent() != null && comment.getAuthor_id() != null && comment.getFather_id() != 0 && comment.getCom_type() != 0){
             User user = userService.getUserInfoById(comment.getAuthor_id());
             if(user.getID().equals(comment.getAuthor_id())){
                 comment.setUsername(user.getUsername());
@@ -35,7 +35,7 @@ public class CommentController {
             commentService.createComment(comment);
 
             // 生成 message
-            int type = comment.getCom_Type();
+            int type = comment.getCom_type();
             String brief_msg = comment.getContent();
             if (brief_msg.length() > 10) {
                 brief_msg = brief_msg.substring(0, 10) + "...";
