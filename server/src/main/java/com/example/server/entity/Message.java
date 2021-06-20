@@ -17,13 +17,13 @@ public class Message {
     // 0 -- 已读
     // 1 -- 未读
     // 2 -- 删除
-    private int status;
+    private int msg_status;
 
     private String content;
 
     // 1 -- 评论评论
     // 2 -- 评论文章
-    private int type;
+    private int msg_type;
 
     // 评论 id 或文章 id
     private int father_id;

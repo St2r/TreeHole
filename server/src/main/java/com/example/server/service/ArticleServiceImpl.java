@@ -1,10 +1,8 @@
 package com.example.server.service;
 
 import com.example.server.entity.Article;
-import com.example.server.entity.Comment;
 import com.example.server.entity.User;
 import com.example.server.mapper.ArticleMapper;
-import com.example.server.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

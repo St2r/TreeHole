@@ -38,11 +38,11 @@ public class MessageServiceImpl implements MessageService {
     @Override
     public void generateMessage(Comment comment, String userid, String brief_msg) {
         Message msg = new Message();
-        msg.setStatus(1);
-        msg.setType(comment.getType());
+        msg.setMsg_Status(1);
+        msg.setMsg_Type(comment.getCom_Type());
         msg.setFather_id(comment.getFather_id());
         msg.setTarget_user_id(userid);
-        if (comment.getType() == 1) {
+        if (comment.getCom_Type() == 1) {
             // 评论评论
             String content = "你的评论收到了新的回复 \"" + brief_msg + "\"";
             msg.setContent(content);

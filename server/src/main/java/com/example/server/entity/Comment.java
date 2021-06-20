@@ -13,7 +13,7 @@ public class Comment {
     private Date create_time;
     private int father_id;
     // 1：评论评论，2：评论文章
-    private int type;
+    private int com_type;
     private List<Comment> comments;
     private String username;
 }
