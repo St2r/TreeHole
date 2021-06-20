@@ -13,17 +13,18 @@ type TArticleCommentProps = {
 }
 
 const commentItem = (comment: TComment) => {
-  // 一条评论，过长时隐藏
+  const username = (comment.username === null || comment.username === '') ? '匿名用户' : comment.username;
+
   return <div className="article-one-comment">
     <div className="one-comment-left">
       <Avatar
         className="one-comment-avatar"
-        alt="Unknown"
-        src="https://avatars.githubusercontent.com/u/37372979?s=64&v=4"/>
+        alt='匿名用户'
+        src={comment.avatar}/>
     </div>
     <div className="one-comment-right">
-      <Chip className='one-comment-username' label={'username'} variant='outlined'/>
-      <Chip className='one-comment-publish-date' label={'2021-01-01'} variant='outlined' size='small'/>
+      <Chip className='one-comment-username' label={username} variant='outlined'/>
+      <Chip className='one-comment-publish-date' label={comment.create_time} variant='outlined' size='small'/>
       <div className="one-comment-content">
         {comment.content}
       </div>
@@ -34,6 +35,7 @@ const commentItem = (comment: TComment) => {
 function ArticleComment(props: TArticleCommentProps): JSX.Element {
   // const shouldFold = props.comments.length > 1;
   // const [folded, setFolded] = useState(shouldFold);
+  const [commentList, setCommentList] = useState(props.comments);
   const [input, setInput] = useState('');
   const [isAnonymous, setAnonymous] = useState(false);
 
@@ -54,7 +56,6 @@ function ArticleComment(props: TArticleCommentProps): JSX.Element {
       });
       return;
     }
-    console.log(props.articleId);
     httpNewComment({
       com_type: 2,
       content: input,
@@ -66,6 +67,7 @@ function ArticleComment(props: TArticleCommentProps): JSX.Element {
         msg: '发送成功',
         type: 'success',
       });
+      setCommentList(r.data);
     }, (e) => {
       console.log(e);
       appContext.setSnackStatus({
@@ -77,7 +79,7 @@ function ArticleComment(props: TArticleCommentProps): JSX.Element {
   }, [input, isAnonymous]);
 
   return <div className='article-comment-wrapper'>
-    {props.comments.map((comment) => {
+    {commentList.map((comment) => {
       return commentItem(comment);
     })}
     {/* <ShowAll show={folded} onClick={() => console.log('onclick show all')}/>*/}

@@ -1,8 +1,7 @@
-import {TUser} from './user';
-
 export type TComment = {
   commentId: string,
   content: string,
-  createTime: number,
-  author: TUser,
+  create_time: string,
+  username: string,
+  avatar: string,
 }

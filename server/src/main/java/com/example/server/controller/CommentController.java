@@ -53,11 +53,11 @@ public class CommentController {
 //                target_user_id = articleService.getTargetUserId(comment.getFather_id());
 //            }
 //            messageService.generateMessage(comment, target_user_id, brief_msg);
+            // 获取该文章下评论列表
+            return commentService.queryChildComments(comment.getFather_id(), 2);
 
-            return null;
         }
-        // 获取该文章下评论列表
-        return commentService.queryChildComments(comment.getFather_id(), 2);
+        return null;
     }
 
     // 删除评论
