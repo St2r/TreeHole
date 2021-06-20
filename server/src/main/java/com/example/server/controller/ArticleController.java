@@ -28,7 +28,7 @@ public class ArticleController {
     // 发布文章
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public String CreateArticle(@RequestBody Article article) {
-        if(article.getTitle() != null && article.getContent() != null && article.getAuthor_id() != null){
+        if(article.getContent() != null && article.getAuthor_id() != null){
             User user = userService.getUserInfoById(article.getAuthor_id());
             if(user.getID().equals(article.getAuthor_id())){
                 article.setUsername(user.getUsername());
