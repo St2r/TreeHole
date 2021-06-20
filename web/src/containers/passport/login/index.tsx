@@ -1,6 +1,6 @@
 import React, {useCallback, useContext, useState} from 'react';
 import './style.scss';
-import {Button, Card, CardActions, CardContent, CardHeader, Snackbar, TextField} from '@material-ui/core';
+import {Button, Card, CardActions, CardContent, CardHeader, Popover, Snackbar, TextField} from '@material-ui/core';
 import {httpDoLogin} from '../../../common/fetch/passport';
 import {useHistory} from 'react-router';
 import {Alert} from '@material-ui/lab';
@@ -24,13 +24,15 @@ function LoginPage(): JSX.Element {
     }).then((r) => {
       // eslint-disable-next-line camelcase
       const {username, id, anonymous_id} = r.data;
-      appContext.user = {
+      const user = {
         isLogin: true,
         username,
         id,
         anonymous_id,
       };
-      console.log(appContext);
+      appContext.setUser(user);
+      appContext.user.isLogin = true;
+      window.sessionStorage.setItem('user', JSON.stringify(user));
       setSnackType(1);
     }, () => {
       setSnackType(2);

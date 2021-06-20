@@ -1,5 +1,5 @@
 import React, {useCallback, useContext, useState} from 'react';
-import {Avatar, Badge} from '@material-ui/core';
+import {Avatar, Badge, Button, createStyles, makeStyles, Popper, Theme} from '@material-ui/core';
 import MailIcon from '@material-ui/icons/Mail';
 import './style.scss';
 import {useHistory} from 'react-router';
@@ -27,6 +27,12 @@ function UserBar(props: TUserIconProps): JSX.Element {
     history.push('/passport/login');
   }, []);
 
+  const handleLogout = useCallback(() => {
+    appContext.setUser({
+      isLogin: false,
+    });
+  }, []);
+
   return <div className={props.className}>
     <div className="user-bar-components">
       {appContext.user.isLogin ?
@@ -47,6 +53,7 @@ function UserBar(props: TUserIconProps): JSX.Element {
       <Badge className="user-bar-badge" style={{cursor: 'pointer'}} color="secondary" badgeContent={1}>
         <MailIcon onClick={openMail}/>
       </Badge>
+      {appContext.user.isLogin && <Button className='user-bar-logout' variant='text' onClick={handleLogout}>登出</Button>}
     </div>
   </div>;
 }
