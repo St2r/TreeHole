@@ -22,5 +22,5 @@ public interface MessageService {
     void deleteMessage(int message_id);
 
     // 生成新的 message
-    void generateMessage(Comment comment, String userid);
+    void generateMessage(Comment comment, String userid, String brief_msg);
 }

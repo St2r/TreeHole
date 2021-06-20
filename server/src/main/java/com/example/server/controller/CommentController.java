@@ -36,6 +36,10 @@ public class CommentController {
 
             // 生成 message
             int type = comment.getType();
+            String brief_msg = comment.getContent();
+            if (brief_msg.length() > 10) {
+                brief_msg = brief_msg.substring(0, 10) + "...";
+            }
             String target_user_id = null;
             if (type == 1) {
                 // 评论评论
@@ -45,7 +49,7 @@ public class CommentController {
                 // 评论文章
                 target_user_id = articleService.getTargetUserId(comment.getFather_id());
             }
-            messageService.generateMessage(comment, target_user_id);
+            messageService.generateMessage(comment, target_user_id, brief_msg);
 
             return "Create Success";
         }

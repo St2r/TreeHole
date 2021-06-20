@@ -22,15 +22,6 @@ public class MessageServiceImpl implements MessageService {
     @Override
     public List<Message> getMessages(String userid) {
         List<Message> messages = messageMapper.queryMessages(userid);
-        for (Message msg : messages) {
-            // TODO 生成 message 的内容
-            if (msg.getType() == 1) {
-                // 评论评论
-            }
-            else {
-                // 评论文章
-            }
-        }
         return messages;
     }
 
@@ -45,12 +36,22 @@ public class MessageServiceImpl implements MessageService {
     }
 
     @Override
-    public void generateMessage(Comment comment, String userid) {
+    public void generateMessage(Comment comment, String userid, String brief_msg) {
         Message msg = new Message();
         msg.setStatus(1);
         msg.setType(comment.getType());
         msg.setFather_id(comment.getFather_id());
         msg.setTarget_user_id(userid);
+        if (comment.getType() == 1) {
+            // 评论评论
+            String content = "你的评论收到了新的回复 \"" + brief_msg + "\"";
+            msg.setContent(content);
+        }
+        else {
+            // 评论文章
+            String content = "你的文章收到了新的评论 \"" + brief_msg + "\"";
+            msg.setContent(content);
+        }
         messageMapper.insertMessage(msg);
     }
     

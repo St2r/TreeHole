@@ -22,6 +22,6 @@ public interface MessageMapper {
     @Update("update message set status = #{new_status} where id = #{id}")
     void updateMessageStatus(int id, int new_status);
 
-    @Insert("insert into message(status, type, father_id, target_user_id) values (#{status}, #{type}, #{father_id}, #{target_user_id})")
+    @Insert("insert into message(status, type, father_id, target_user_id, content) values (#{status}, #{type}, #{father_id}, #{target_user_id}, #{content})")
     void insertMessage(Message message);
 }
