@@ -37,3 +37,22 @@
     }
   }
 }
+
+.comment-writer-wrapper {
+  display: flex;
+  .comment-input {
+    flex-grow: 1;
+  }
+  .comment-anonymous {
+    .MuiFormControlLabel-label {
+      font-size: 14px;
+    }
+    flex-grow: 0;
+    margin-right: -10px;
+    width: 150px;
+  }
+  .comment-button {
+    flex-grow: 0;
+    width: 100px;
+  }
+}

@@ -1,11 +1,10 @@
-import {TUser} from './user';
 import {TComment} from './comment';
 
 export type TArticle = {
   articleId: string,
   title: string,
   content: string,
-  comment: TComment[],
+  comments: TComment[],
   createTime: string,
   // eslint-disable-next-line camelcase
   modify_time: string,
@@ -13,4 +12,5 @@ export type TArticle = {
   is_private: number,
   type: string,
   username: string,
+  avatar: string,
 }
